@@ -1,0 +1,1510 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=3.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8">
+  <title>i share i learn</title>
+  <!-- 網頁頁籤標題左側顯示的圖示ICON -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <!-- 書籤收藏夾顯示的圖示ICON -->
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+    crossorigin="anonymous"></script>
+
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+  <style>
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css");
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400&family=Righteous&display=swap');
+    /*  
+    font-family: 'Noto Sans TC', sans-serif;  中文
+    font-family: 'Righteous', cursive;  英文
+    font-family: 'Righteous', 'Noto Sans TC', sans-serif;  英中文
+    */
+
+    /* 設定變數 ===================================================== */
+    :root {
+      --f-family-1: 'Righteous', 'Noto Sans TC', sans-serif;
+
+      --c-black-10: #000;
+      --c-black-05: rgba(0, 0, 0, 0.5);
+      /*暫無用*/
+
+      --c-gray1: #222;
+      --c-gray2: #999;
+      --c-gray3: #ddd;
+
+      --c-white-10: #fff;
+      --c-white-08: rgba(255, 255, 255, 0.8);
+      --c-white-06: rgba(255, 255, 255, 0.6);
+
+
+      --c-nav-10: rgba(50, 15, 60, 1);
+      --c-nav-05: rgba(50, 15, 60, 0.5);
+      --c-nav-00: rgba(50, 15, 60, 0);
+
+      --c-assist1-10: rgba(76, 18, 92, 1);
+      --c-assist1-07: rgba(76, 18, 92, 0.7);
+
+      --c-assist2-10: rgba(180, 120, 200, 1.0);
+      --c-assist2-03: rgba(180, 120, 200, 0.3);
+      --c-assist2-01: rgba(180, 120, 200, 0.1);
+      --c-assist2-00: rgba(180, 120, 200, 0.0);
+
+      --c-red: #f00;
+    }
+
+    /* reset & 整體預設 ============================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-image: url(./static/img/body_bg.png);
+      /* font-family: Arial, Helvetica, sans-serif; VScode下拉式選單 */
+      /* 下一行是BS5已設計的 */
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    }
+
+    /* offcanvas 區域 ===================================================== */
+    /* .offcanvas {
+      max-width: 85%;
+      background-image: url(./static/img/sec2_f2.png), url(./static/img/body_bg.png);
+      background-repeat: no-repeat, repeat;
+      background-position: right bottom;
+      background-size: 50%;
+    }
+
+    .offcanvas-header {
+      background-image: url(./static/img/shadow1.png);
+      background-repeat: no-repeat;
+      background-position: center bottom;
+      background-size: contain;
+    }
+
+    .offcanvas .navbar-nav .nav-link {
+      font-size: 18px;
+      font-weight: bold;
+    } */
+
+    /* header 區域 ===================================================== */
+    header {
+      background-color: var(--c-nav-10);
+    }
+
+    header .container-xl {
+      justify-content: space-evenly !important;
+    }
+
+    .navbar-nav {
+      /* text-align: center; */
+      margin-left: 70px !important;
+    }
+
+    /*
+      尺寸大小,寬高 RWD 設計方法  ※建議「手機為先」的考量
+      方法1: @media(min-width:???px){ 設計LOGO的尺寸 }
+      方法2: width: min( calc( 40px + 3vw ), 90px )
+            計算函數 calc( 基本數值 + 依螢幕寬度的百分比 ) 加號左右必須空格
+            取最小值 min( calc計算依螢幕大小縮放( 最小值 + vw的比例 ), 限定的最大值 )
+    */
+
+    .navbar-brand h1 {
+      font-size: min(calc(18px + 1.5vw), 36px);
+      font-family: var(--f-family-1);
+    }
+
+    .navbar-brand h1 img {
+      width: min(calc(40px + 3vw), 90px);
+    }
+
+    /* 按鈕一般狀態 */
+    .navbar-dark .navbar-nav .nav-link {
+      color: var(--c-white-08);
+      font-size: 18px;
+      font-family: var(--f-family-1);
+      letter-spacing: 1px;
+      position: relative;
+    }
+
+    /* 按鈕滑入狀態 */
+    .navbar-dark .navbar-nav .nav-link:focus,
+    .navbar-dark .navbar-nav .nav-link:hover {
+      color: var(--c-white-10);
+      font-weight: bold;
+    }
+
+    /* 按鈕作用中狀態 */
+    .navbar-dark .navbar-nav .nav-link.active,
+    .navbar-dark .navbar-nav .show>.nav-link {
+      color: var(--c-white-10);
+      font-weight: bold;
+    }
+
+
+
+    @media(min-width:768px) {
+      .fixed-top {
+        background: var(--c-nav-10);
+        background: linear-gradient(var(--c-nav-10), var(--c-nav-05) 55%, var(--c-nav-00));
+        transition: 1s;
+        position: absolute;
+      }
+
+      @keyframes headerAni {
+        0% {
+          transform: translateY(-200%);
+        }
+      }
+
+      .fixed-top.fixed {
+        animation: headerAni .8s cubic-bezier(0.32, 0.33, 1, 0.46);
+        position: fixed;
+      }
+
+      header:hover {
+        background-color: var(--c-nav-10);
+      }
+
+      .navbar-nav {
+        margin-left: auto !important;
+      }
+
+      .navbar-dark .navbar-nav .nav-link {
+        padding: .8rem .5rem;
+      }
+
+      .navbar-dark .navbar-nav .nav-link::after {
+        content: '';
+        background-color: var(--c-white-06);
+        position: absolute;
+        left: 0;
+        display: block;
+        bottom: 0;
+        height: 4px;
+        width: 100%;
+        transform: scaleX(0);
+        transition: .5s;
+      }
+
+      .navbar-dark .navbar-nav .nav-link:hover::after {
+        transform: scaleX(100%);
+      }
+
+      .navbar-dark .navbar-nav .nav-link.active::after {
+        transform: scaleX(100%);
+        background-color: var(--c-white-10);
+      }
+    }
+
+    /* section 所有區域 ===================================================== */
+    section {
+      min-height: 100vh;
+      background-image: url(./static/img/shadow1.png);
+      background-repeat: no-repeat;
+      background-position: center top;
+      padding: 120px 0 50px 0;
+      position: relative;
+    }
+
+    h2 {
+      margin-bottom: 40px;
+      text-align: center;
+      background: url(./static/img/h1bg.png) no-repeat center;
+      background-size: contain;
+      /* CSS1,2可以合併縮寫, CSS3新增不能合併上去 */
+      /* 先合併代表所有background相關設定, 合併寫法放在上方 */
+      /* 單一指定的background項目可以再放下方 */
+      font-family: var(--f-family-1);
+      /* 版面小時, 背景可縮小寬度滿版; 版面大時, 背景最大到600px */
+    }
+
+    @media(min-width: 600px) {
+      h2 {
+        background-size: auto;
+        /*auto自動依原尺寸*/
+      }
+    }
+
+    /* #sec1 區域 ===================================================== */
+    #sec1 {
+      padding: 0;
+    }
+
+    #sec1 .carousel-item {
+      background-position: center;
+      background-size: cover;
+      height: 100vh;
+    }
+
+    /* 手機版時的背景圖 */
+    #sec1 .carousel-item:nth-of-type(1) {
+      background-image: url(./static/img/Number1.jpg);
+    }
+
+    #sec1 .carousel-item:nth-of-type(2) {
+      background-image: url(./static/img/Violin_small.jpg);
+    }
+
+    #sec1 .carousel-item:nth-of-type(3) {
+      background-image: url(./static/img/turkey_small.jpg);
+    }
+
+    /* 平版時的背景圖 */
+    @media(min-width:500px) {
+      #sec1 .carousel-item:nth-of-type(1) {
+        background-image: url(./static/img/Hospice_large.jpg);
+        /* background-position: left; */
+        background-position-x: -150px;
+      }
+
+      #sec1 .carousel-item:nth-of-type(2) {
+        background-image: url(./static/img/Class_Girl.jpg);
+      }
+
+      #sec1 .carousel-item:nth-of-type(3) {
+        background-image: url(./static/img/Class_Boy.png);
+        background-position-x:-200px;
+      }
+    }
+
+    /* 桌機版時的背景圖 */
+    @media(min-width:1000px) {
+      #sec1 .carousel-item:nth-of-type(1) {
+        background-image: url(./static/img/Graduate.jpg);
+        background-position-x: 5px;
+      }
+
+      #sec1 .carousel-item:nth-of-type(2) {
+        background-image: url(./static/img/turkey_large.jpg);
+      }
+
+      #sec1 .carousel-item:nth-of-type(3) {
+        background-image: url(./static/img/Nursing_large.jpg);
+        /* background-size: contain;
+        background-repeat: no-repeat; */
+        background-position: left;
+      }
+    }
+
+
+
+    /* #sec2 區域 ===================================================== */
+    #sec2 {
+      background-image: url(./static/img/sec2_f1.png), url(./static/img/sec2_f1.png), url(./static/img/sec2_f2.png);
+      background-repeat: no-repeat;
+      background-position: left 80px, left bottom, right bottom;
+      background-size: min(6vw, 50px) auto, min(10vw, 90px) auto, min(22vw, 200px) auto;
+      padding-bottom: 200px;
+    }
+
+    #sec2 .row {
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    #sec2 .row .col-12:last-of-type {
+      position: relative;
+      padding: 1rem;
+      margin-top: 30px;
+    }
+
+    #sec2 .row .col-12:last-of-type::before {
+      content: '';
+      background-color: var(--c-assist2-01);
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      box-sizing: content-box;
+    }
+
+
+    #sec2 .row p {
+      text-align: justify;
+    }
+
+    #sec2 .row h3,
+    #sec2 .row p,
+    #sec2 .row .col-12:first-of-type {
+      z-index: 1;
+      position: relative;
+    }
+
+    #sec2 .row .col-12:first-of-type {
+      position: relative;
+    }
+
+    #sec2 .row .col-12:first-of-type::after {
+      content: '';
+      background-image: url(./static/img/shadow2.png);
+      background-repeat: no-repeat;
+      background-size: 100% auto;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      transform: translateY(100%);
+      width: 100%;
+      height: 30px;
+    }
+
+    @media (min-width: 768px) {
+      #sec2 .row {
+        align-items: flex-start;
+      }
+
+      #sec2 .row .col-12:first-of-type {
+        transform: translateY(50px);
+      }
+
+      #sec2 .row .col-12:last-of-type {
+        padding: 1rem;
+        margin-top: 0;
+      }
+
+      #sec2 .row .col-12:last-of-type::before {
+        padding-left: 200px;
+        box-sizing: content-box;
+        transform: translate(-200px, 2rem);
+      }
+    }
+
+    /* #sec3 區域 ===================================================== */
+    .nav-tabs {
+      border: none;
+    }
+
+
+    /* navs 按鈕一般狀態  */
+    #sec3 .nav-tabs .nav-link {
+      border: none;
+      color: var(--c-gray2);
+      margin-bottom: 0;
+      font-family: var(--f-family-1);
+      font-size: 17px;
+      letter-spacing: 1px;
+    }
+
+    /* navs 按鈕滑入狀態  */
+    #sec3 .nav-tabs .nav-link:focus,
+    #sec3 .nav-tabs .nav-link:hover {
+      color: var(--c-gray1);
+      font-weight: bold;
+    }
+
+    /* navs 按鈕作用中狀態  */
+    #sec3 .nav-tabs .nav-item.show .nav-link,
+    #sec3 .nav-tabs .nav-link.active {
+      color: var(--c-black-10);
+      background-color: var(--c-assist2-03);
+      font-weight: bold;
+    }
+
+    #sec3 .tab-content>.tab-pane {
+      background: var(--c-nav-10);
+      background: linear-gradient(var(--c-assist2-03), var(--c-assist2-01) 30%, var(--c-assist2-00) 70%);
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    .sec3img {
+
+      display: block;
+      width: 90%;
+      max-width: 300px;
+      margin: 20px auto;
+      border-radius: 10px;
+    }
+
+
+    #sec3 .tab-pane .col-12,
+    #sec3 .tab-pane .col-12 img {
+      transition: .5s;
+    }
+
+    /* 負責放大的效果 */
+    .scale-b {
+      transform: scale(1.1);
+    }
+
+    /* 負責放大框中的影像有陰影 */
+    .scale-b img {
+      box-shadow: 0 0 5px var(--c-assist1-07);
+    }
+
+    /* 負責縮小的效果 */
+    .scale-s {
+      transform: scale(0.8);
+      opacity: 0.3;
+    }
+
+    /*
+    誰hover誰就是主角, 這裡負責主角自己的變化
+    #sec3 .tab-pane .col-12:hover {
+      transform: scale(1.1);
+    }
+    負責主角子孫的變化
+    #sec3 .tab-pane .col-12:hover img {
+      box-shadow: 0 0 5px var(--c-assist1-07);
+    }
+    負責主角弟弟的變化
+    #sec3 .tab-pane .col-12:hover ~ .col-12 {
+      transform: scale(0.8);
+      opacity: 0.3;
+    }
+    */
+
+    /* #sec4 區域 ===================================================== */
+    #sec4 .container-xl {
+      background-image: url(./static/img/sec4m1.png);
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: auto 130px;
+      padding-top: 130px;
+      position: relative;
+    }
+
+    #sec4 .container-xl::before {
+      content: '';
+      background-image: url(./static/img/sec4m2.png);
+      width: 29px;
+      height: 23px;
+      display: block;
+      position: absolute;
+      left: 50%;
+      transform: translate(35px, -60%);
+    }
+
+    /*
+    #sec4 > .container-xl > .row > .col-12 {
+      background-color: white;
+    }
+    */
+
+    #sec4 .col-12>h3 {
+      font-size: 18px;
+      font-weight: bold;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    #sec4 .accordion-item {
+      background-color: transparent;
+      border: none;
+    }
+
+    #sec4 .accordion-button {
+      background-color: transparent;
+    }
+
+    #sec4 .accordion-button:not(.collapsed) {
+      color: #9038ae;
+      font-weight: bold;
+      background-color: transparent;
+      box-shadow: none;
+    }
+
+    .accordion-button:focus {
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    #sec4 .accordion-body {
+      padding: 0 3rem 2rem 2rem;
+      text-align: justify;
+    }
+
+    .accordion-button:not(.collapsed)::after {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%239038ae'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    }
+
+    .svg1 {
+      fill: red;
+    }
+
+    .svg2 {
+      fill: yellowgreen;
+    }
+
+    @media(min-width:768px) {
+      #sec4 .container-xl {
+        background-image: url(./static/img/sec4bg.png), url(./static/img/sec4bg2.png);
+        background-repeat: no-repeat, repeat-y;
+        background-size: 100% auto;
+        padding-top: 0;
+      }
+
+      #sec4 .container-xl::before {
+        content: none;
+      }
+    }
+
+    /* #sec5 區域 ===================================================== */
+
+    #sec5 .container-xl {
+      background-image: url(./static/img/contact.png);
+      background-size: auto 150px;
+      background-repeat: no-repeat;
+      background-position: 20% 0;
+      padding-top: 150px;
+    }
+
+    /* 表單 */
+    #sec5 form {
+      background-color: rgba(255, 255, 255, 0.75);
+      padding: 30px 1rem 30px 1rem;
+      margin-bottom: 80px;
+      border-radius: 10px;
+    }
+
+    #sec5 form .row {
+      margin-bottom: 2rem;
+    }
+
+    #sec5 form i {
+      color: #9038ae;
+      order: -1;
+      font-size: 1.5em;
+    }
+
+    #sec5 form .row:nth-of-type(5) .col-12:nth-of-type(2) div {
+      width: 6em;
+    }
+
+    #sec5 form label {
+      padding-right: .5rem;
+    }
+
+    .form-control:focus {
+      border-color: var(--c-assist2-01);
+      box-shadow: 0 0 0 0.25rem var(--c-assist2-01);
+    }
+
+    .form-check-input:focus {
+      border-color: var(--c-assist2-01);
+      outline: 0;
+      box-shadow: 0 0 0 0.25rem var(--c-assist2-01);
+    }
+
+    .form-check-input:checked {
+      background-color: var(--c-assist2-10);
+      border-color: var(--c-assist2-10);
+    }
+
+    .form-select:focus {
+      border-color: var(--c-assist2-01);
+      outline: 0;
+      box-shadow: 0 0 0 0.25rem var(--c-assist2-01);
+    }
+
+    ::placeholder {
+      color: #bbb !important;
+    }
+
+    .redword {
+      color: red;
+      padding-right: .3rem;
+    }
+
+    footer {
+      background-color: var(--c-nav-10);
+      color: #fff;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      padding: 1.5rem .5rem;
+    }
+
+    @media(min-width: 576px) {
+      #sec5 form {
+        padding: 30px 50px 30px 1rem;
+      }
+
+      #sec5 form .row {
+        margin-bottom: .8rem;
+      }
+
+      #sec5 form i {
+        order: 0;
+      }
+
+      #sec5 form .row:nth-of-type(5) .col-12:nth-of-type(2) div {
+        width: auto;
+        white-space: nowrap;
+      }
+    }
+
+    @media(min-width: 768px) {
+      #sec5 {
+        display: flex;
+        flex-direction: column;
+      }
+
+      #sec5 .container-xl {
+        background-size: 30% auto;
+        background-position: left bottom;
+        padding-top: 0px;
+        min-height: 300px;
+        flex: 1;
+      }
+    }
+  </style>
+
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbarSupportedContent" data-bs-offset="150">
+
+  <!-- 一組導覽列，lg 991px md 767px 以下會轉為手機版 -->
+  <!-- navbar-light 是配合亮底版面字為黑色，navbar-dark 是配合暗底版面字為白色 -->
+  <!-- bg-light 才是背景顏色,不需要刪除, fixed-top 固定畫面上方 -->
+  <header class="navbar navbar-expand-md navbar-dark fixed-top">
+    <!-- 設定區域範圍(限制寬度) -->
+    <div class="container-xl">
+
+      <!-- 以下是手機版才出現的按鈕，負責控制顯示導覽列下拉式選單 -->
+      <!-- 注意：data-bs-target的名字必須與可收合部份的ID相同 -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+      <!-- 表現LOGO連結的區域，可以加上LOGO圖片 -->
+      <a class="navbar-brand p-0" href="#">
+        <h1 class="d-flex align-items-center p-0 m-0">
+          <img src="./static/img/logo.png" alt="" class="me-2"> <i>i learn, i share</i>
+        </h1>
+      </a>
+
+      <nav class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-2 mb-md-0 mt-3 mt-md-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="#sec1" aria-current="page">最新消息</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#sec2">認識講師</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#sec3">課程介紹</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#sec4">常見問題</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#sec5">聯絡我們</a>
+          </li>
+        </ul>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- sec1 區域 ======================================== -->
+  <section id="sec1">
+
+    <div id="carouselSlider" class="carousel slide" data-bs-ride="carousel">
+
+      <!-- 下方的指示器 -->
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselSlider" data-bs-slide-to="0" aria-label="Slide 1"
+          aria-current="true" class="active"></button>
+        <button type="button" data-bs-target="#carouselSlider" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselSlider" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+
+      <!-- carousel 中呈現大圖的範圍 -->
+      <div class="carousel-inner">
+        <!-- 第1張 -->
+        <div class="carousel-item active">
+          <!-- <img src="./static/img/slide1.jpg" class="d-block w-100" alt="..."> -->
+        </div>
+        <!-- 第2張 -->
+        <div class="carousel-item">
+          <!-- <img src="./static/img/slide2.jpg" class="d-block w-100" alt="..."> -->
+        </div>
+        <!-- 第3張 -->
+        <div class="carousel-item">
+          <!-- <img src="./static/img/slide3.jpg" class="d-block w-100" alt="..."> -->
+        </div>
+
+      </div>
+
+      <!-- 切換到上一頁按鈕 -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselSlider" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+
+      <!-- 切換到下一頁按鈕 -->
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselSlider" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+  </section>
+
+  <!-- sec2 區域 ======================================== -->
+  <section id="sec2">
+    <h2>認識講師</h2>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <img src="./static/img/IMG_7581.jpg" class="d-block w-100 animate__animated animate__fadeIn"
+            style="animation-delay: 0.5s;" alt="">
+        </div>
+        <div class="col-12 col-md-6">
+          <h3 class="wow animate__animated animate__fadeInRight" style="animation-delay: 1.0s;">平台創辦及發起人:Evan</h3>
+          <p class="wow animate__animated animate__fadeInRight" style="animation-delay: 1.4s;">
+            就讀: 明道中學國際部10年級<br>
+            最擅長的樂器: 小提琴 <br>
+            經歷: 台中青少年交響樂團成員<br>
+            最喜愛的運動: 網球<br>
+            社團: 羽球社創社社長<br>
+            程式語言:MTA python/ TQC+ C
+          </p>
+          <p class="wow animate__animated animate__fadeInRight" style="animation-delay: 1.7s;">
+            學習是一輩子的事，我有廣泛的興趣和學習經驗，包括電腦程式、小提琴、鋼琴、網球、羽球、鐵人三項、拳擊、武術和珠心算等等。深深感到如果有老師個別指導，學習定能突飛猛進。
+          </p>
+          <p class="wow animate__animated animate__fadeInRight" style="animation-delay: 2.0s">
+            我現在還是一位在學的高中生，但我樂意貢獻所學，幫助學弟妹，不再因為跟不上的團體課，無聊的網路課或是負擔不起的家教課而放棄學習。也希望能夠抛磚引玉，喚起更多學習更好的過來人加入<i>i learn / i share</i>的行列，大家一起: <strong>活到老，學到老，分享到老!</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- sec3 區域 ======================================== -->
+  <section id="sec3">
+    <h2>課程介紹</h2>
+
+    <!-- (1)頁籤面板 (2)內容網格排版 (3)滑入動態效果 (4)點選彈出效果 -->
+    <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button"
+          role="tab" aria-controls="home" aria-selected="true">劍橋英檢</button>
+      </li>
+
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab"
+          aria-controls="profile" aria-selected="false">數學天地</button>
+      </li>
+
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab"
+          aria-controls="contact" aria-selected="false">程式語言</button>
+      </li>
+
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#tab4" type="button" role="tab"
+          aria-controls="contact" aria-selected="false">音樂園地</button>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+
+      <div id="tab1" class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
+        <div class="container-xl">
+          <div class="row" data-set="劍橋英檢">
+            <div class="col-12 col-sm-6 col-md-3">
+              <img src="./static/img/starter.jpg" class="sec3img" data-bs-toggle="modal" data-bs-target="#showProdInfo"
+                data-img-b="starter.jpg" alt="">
+              <span>劍橋兒童英檢等級第1級：Starter</span>
+              <div class="desc d-none">
+                <p>
+                  英語聽力：物品位置連連看、單字回答、三選一的看圖選擇，和聽解著色，題目皆以生動的實境對話進行。<br><br>
+                  英文閱讀與寫作：單句讀解、看圖辨句、單字拼寫、短文閲讀填字和看圖答句。<br><br>
+                  英語口説：看圖辨字、物品位置擺放、回答物品數量和顏色、人物動作、辨認日常熟悉事物及喜好問答、個人資訊，和生活經驗問答。
+                </p>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+              <img src="./static/img/mover.jpg" class="sec3img" data-bs-toggle="modal" data-bs-target="#showProdInfo"
+                data-img-b="mover.jpg" alt="">
+              <span>劍橋兒童英檢等級第2級：Movers</span>
+              <div class="desc d-none">
+                <p>
+                  英語聽力：動作與人物連連看、單字筆記、活動與星期連連看、三選一的看圖選擇，和聽解著色。<br><br>
+                  英文閱讀與寫作：單字定義句子讀解、看圖辨句、三選一的單句問答選擇、短文閲讀填字，及文章標題選擇，和看圖文完成句意。<br><br>
+                  英語口説：分辨差異、連環圖故事、指出不同事物，並說明理由，和日常生活主題問答。
+                </p>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+              <img src="./static/img/Flyer.jpg" class="sec3img" data-bs-toggle="modal" data-bs-target="#showProdInfo"
+                data-img-b="Flyer.jpg" alt="">
+              <span>劍橋兒童英檢等級第3級：Flyers</span>
+              <div class="desc d-none">
+                <p>
+                  英語聽力：動作與人物連連看、單字或片語筆記、長篇對談七選五配合題、三選一的看圖選擇和聽解著色、繪圖與書寫。<br><br>
+                  英文閱讀與寫作：單字定義句子讀解、看圖辨句、七選五的對話問答選擇、短文閲讀填字，及文章標題選擇、看圖文完成句意、三選一克漏字選填題，和克漏字填空。<br><br>
+                  英語口説：分辨差異、回答問題與發問、連環圖故事和日常生活主題問答。
+                </p>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+              <img src="./static/img/KET.jpg" class="sec3img" data-bs-toggle="modal" data-bs-target="#showProdInfo"
+                data-img-b="ket.jpg" alt="">
+              <span>KET: A2 Key / A2 key for Schools</span>
+              <div class="desc d-none">
+                <p>
+                  Part 1 閱讀&寫作：<br>
+
+                  總共60分鐘 (舊制70分鐘)
+                  分為7個部分，32小題，寫作改為2篇(舊制:分為9個部分，56小題，寫作一篇)
+                  有多選題、填空題，以及短文填空
+                  閱讀: 內容多半是跟每天生活中會接觸的內容為主 ，包括了街道標示和公告等，或是處理信件、簡訊等個人事務以及懂得如何讀懂報紙或雜誌中的內容，並抓出重點 。
+                  寫作: 一篇為依照題目寫出簡短的簡訊或是email，一篇為看三張圖片寫故事。
+                </p>
+                <p>
+                  Part 2 聽力：<br>
+                  總共30分鐘
+                  分為5個部分，25小題
+                  聽力會有幾段日常英語對話，談話速度慢且咬字清晰，最後再針對錄音內容提問，每段錄音均播放兩次。部分題目為多選題，而其餘則是填空。
+                </p>
+                <p>
+                  Part 3 口說：<br>
+
+                  8-10分鐘
+                  分為兩部分
+                  考生會被兩兩分組，並要求先後與主考官和另一考生進行對答
+                  第一部份即考生對考官互動，為一般交談中初次見面的內容，包含詢問對方的名字，出生地，興趣 等。
+                  第二部份為兩位考生彼此互動, 互問對方平日的生活 , 休閒活動等。 最後再由考官分別依照剛剛進行的討論主題，問考生一些延伸問題。
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div id="tab2" class="tab-pane fade" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="container-xl">
+          <div class="row" data-set="數學天地">
+            <div class="col-12 col-sm-6 col-md-3">
+              <img src="./static/img/math_2.jpg" class="sec3img" data-bs-toggle="modal" data-bs-target="#showProdInfo"
+                data-img-b="math_2.jpg" alt="">
+              <span> 國小低年級數學</span>
+              <div class="desc d-none">
+                <p style="font-size: larger">
+                  一年級：<br>
+                  數的概念<br>
+                  數的比較<br>
+                  數的排列<br>
+                  加法<br>
+                  減法<br>
+                  量詞<br>
+                  長度比較<br>
+                  圖形辨識<br>
+                  圖形分類<br>
+                  計算問題<br>
+                </p>
+                <p style="font-size: larger">
+                  二年級：<br>
+                  數的應用<br>
+                  數的變化<br>
+                  加減法應用<br>
+                  金錢應用<br>
+                  量詞應用<br>
+                  長度測量<br>
+                  圖形分類<br>
+                  圖形的種類<br>
+                  圖形的特徵<br>
+                  計算問題<br>
+                </p>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+              <img src="./static/img/math_4.webp" class="sec3img" data-bs-toggle="modal" data-bs-target="#showProdInfo"
+                data-img-b="math_4.webp" alt="">
+              <span> 國小中年級數學</span>
+              <div class="desc d-none">
+                <p style="font-size: larger">
+                  三年級：<br>
+                  數的應用<br>
+                  數的比較與應用<br>
+                  乘法<br>
+                  除法<br>
+                  金錢的應用<br>
+                  長度的應用<br>
+                  圖形的特徵<br>
+                  圖形的分類<br>
+                  圖形的作圖<br>
+                  計算問題<br>
+                </p>
+                <p style="font-size: larger">
+                  四年級：<br>
+                  數與式<br>
+                  數的大小比較<br>
+                  數的四則運算<br>
+                  二位數的加法和減法<br>
+                  時間和金錢<br>
+                  幾何<br>
+                  資料的收集和整理<br>
+                  圖形與圖表<br>
+                </p>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+              <img src="./static/img/math_6.webp" class="sec3img" data-bs-toggle="modal" data-bs-target="#showProdInfo"
+                data-img-b="math_6.webp" alt="">
+              <span> 國小高年級數學</span>
+              <div class="desc d-none">
+                <p style="font-size: larger">
+                  五年級：<br>
+                  數的應用<br>
+                  分數<br>
+                  百分數<br>
+                  三角形<br>
+                  直線和角度<br>
+                  小數<br>
+                  長方體和正方體<br>
+                  圓的面積和周長<br>
+                </p>
+                <p style="font-size: larger">
+                  六年級：<br>
+                  數的應用<br>
+                  數與代數式<br>
+                  數的平方根<br>
+                  數的立方和立方根<br>
+                  平面圖形<br>
+                  梯形和平行四邊形<br>
+                  圓與圓形<br>
+                  統計學與機率<br>
+                </p>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+              <img src="./static/img/math_789.webp" class="sec3img" data-bs-toggle="modal" data-bs-target="#showProdInfo"
+                data-img-b="math_789.webp" alt="">
+              <span> 國中數學</span>
+              <div class="desc d-none">
+                <p style="font-size: larger">
+                  七年級數學：<br>
+                  數與式<br>
+                  數的四則運算<br>
+                  數的應用<br>
+                  幾何初步<br>
+                  資料分析<br>
+                  函數初步<br>
+                </p>
+                <p style="font-size: larger">
+                  八年級數學：<br>
+                  數與式<br>
+                  數的應用<br>
+                  幾何進階<br>
+                  比例與相似<br>
+                  直線與角<br>
+                  機率初步<br>
+                </p>
+                <p style="font-size: larger">
+                  九年級數學：<br>
+                  數與式<br>
+                  數的應用<br>
+                  代數初步<br>
+                  幾何進階<br>
+                  機率與統計<br>
+                  三角函數<br>
+                </p>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div id="tab3" class="tab-pane fade" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="container-xl">
+          <div class="row" data-set="程式語言">
+            <div class="col-12 col-sm-6 col-md-3">
+              <img src="./static/img/scratch.jpg" class="sec3img" data-bs-toggle="modal" data-bs-target="#showProdInfo"
+                data-img-b="scratch.jpg" alt="">
+              <span style="font-size: 30px"> scratch</span>
+              <div class="desc d-none">
+                <p style="font-size: larger">
+                  CH.1　Scratch3 開發環境介紹<br>
+                  CH.2　變數、資料型別與運算子<br>
+                  CH.3　條件判斷<br>
+                  CH.4　迴圈<br>
+                  CH.5　陣列<br>
+                  CH.6　猜拳遊戲<br>
+                  CH.7　鋼琴彈奏<br>
+                </p>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+              <img src="./static/img/C.jpg" class="sec3img" data-bs-toggle="modal" data-bs-target="#showProdInfo"
+                data-img-b="C.jpg" alt="">
+              <span style="font-size: 30px"> C語言</span>
+              <div class="desc d-none">
+                <p style="font-size: larger">
+                  第 1 章 變數和常數<br>
+                  第 2 章 標準的輸入與輸出<br>
+                  第 3 章 運算式與運算子<br>
+                  第 4 章 控制流程<br>
+                  第 5 章 函數與儲存類別<br>
+                  第 6 章 陣列<br>
+                  第 7 章 指標<br>
+                  第 8 章 結構<br>
+                  第 9 章 字串與字元庫存函數<br>
+                  第 10 章 常用的數學函數<br>
+                  第 11 章 檔案<br>
+                  第 12 章 其他論題<br><br>
+                  附錄 A Dev-C++使用說明<br>
+                  附錄 B C 語言運算子的運算優先順序與結合性<br>
+                  附錄 C ASCII字元碼<br>
+                  附錄 D 各種習題解答<br>
+                </p>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+              <img src="./static/img/Python.jpg" class="sec3img" data-bs-toggle="modal" data-bs-target="#showProdInfo"
+                data-img-b="python.jpg" alt="">
+              <span style="font-size: 30px"> Python 3.x</span>
+              <div class="desc d-none">
+                <p style="font-size: larger">
+                  Chapter 1 基本程式設計<br>
+                  Chapter 2 選擇敘述<br>
+                  Chapter 3 迴圈敘述<br>
+                  Chapter 4 進階控制流程<br>
+                  Chapter 5 函式<br>
+                  Chapter 6 串列<br>
+                  Chapter 7 數組、集合，以及詞典<br>
+                  Chapter 8 字串<br>
+                  Chapter 9 檔案與異常處理<br>
+                </p>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+              <img src="./static/img/webpage.jpg" class="sec3img" data-bs-toggle="modal" data-bs-target="#showProdInfo"
+                data-img-b="webpage.jpg" alt="">
+              <span style="font-size: 30px">網頁設計</span>
+              <div class="desc d-none">
+                <p style="font-size: larger">
+                  CHAPTER 01網站設計必備知識 <br>
+                  CHAPTER 02HTML入門標籤<br>
+                  CHAPTER 03表格/表單與多媒體素材<br>
+                  CHAPTER 04CSS樣式基礎語法<br>
+                  CHAPTER 05超夯的網頁區塊規劃<br>
+                  CHAPTER 06必學的吸睛網頁工作術<br>
+                  CHAPTER 07輕鬆搞定網站圖像與色彩<br>
+                  CHAPTER 08實作─全螢幕HTML5+CSS3網頁設計<br>
+                  CHAPTER 09實作─兩欄式網頁設計<br>
+                  CHAPTER 10實作─格狀式版面網頁設計<br>
+                  CHAPTER 11表單綜合範例應用─線上購物表單<br>
+                  CHAPTER 12HTML網頁的SEO視角<br>
+
+                </p>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div id="tab4" class="tab-pane fade" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="container-xl">
+          <div class="row" data-set="音樂園地">
+            <div class="col-12 col-sm-6 col-md-3">
+              <img src="./static/img/violin_1.png" class="sec3img" data-bs-toggle="modal" data-bs-target="#showProdInfo"
+                data-img-b="violin_1.png" alt="">
+              <span style="font-size: 30px">篠崎小提琴教本第一冊</span>
+              <div class="desc d-none">
+                <p style="font-size: larger">
+                  小提琴教材最多人使用的是《篠崎小提琴教本》共四冊，舊版編制為六卷，第一冊為第一卷，第二冊分為第二卷與第三卷，第三冊為第四卷與第五卷，第四冊為第六卷，新版第二冊
+                  與第三冊各分兩部。
+                </p>
+                <p style="font-size: larger">
+                  此冊為初階教本，提琴結構與發音構造涵蓋在提琴教學裡；拉奏方面，初階教材第一冊於每條弦皆有相同練習方式，亦有相同曲目於不同條弦上，使得學習者熟悉曲目，在拉奏時較為順利，以從 A
+                  弦空弦開始拉奏四分、二分音符節奏為主，再運用到其他音高，以歌曲方式將節奏與音高混合。
+                </p>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+              <img src="./static/img/violin_2.jpg" class="sec3img" data-bs-toggle="modal" data-bs-target="#showProdInfo"
+                data-img-b="violin_2.jpg" alt="">
+              <span style="font-size: 30px">篠崎小提琴教本第二冊</span>
+              <div class="desc d-none">
+                <p style="font-size: larger">
+                  小提琴教材最多人使用的是《篠崎小提琴教本》共四冊，舊版編制為六卷，第一冊為第一卷，第二冊分為第二卷與第三卷，第三冊為第四卷與第五卷，第四冊為第六卷，新版第二冊
+                  與第三冊各分兩部。
+                </p>
+                <p style="font-size: larger">
+                  第二冊分為兩部分，第一部分為延續第一冊程度，在曲目上除了有伴奏可作
+                  為教學上搭配，也可運用雙小提琴拉奏。教材第二冊第二部加入凱薩練習曲，每首練習曲拉奏完後，皆有一首技巧相同曲目作為演奏。
+                </p>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+              <img src="./static/img/violin_3.png" class="sec3img" data-bs-toggle="modal" data-bs-target="#showProdInfo"
+                data-img-b="violin_3.png" alt="">
+              <span style="font-size: 30px">篠崎小提琴教本第三冊</span>
+              <div class="desc d-none">
+                <p style="font-size: larger">
+                  小提琴教材最多人使用的是《篠崎小提琴教本》共四冊，舊版編制為六卷，第一冊為第一卷，第二冊分為第二卷與第三卷，第三冊為第四卷與第五卷，第四冊為第六卷，新版第二冊
+                  與第三冊各分兩部。
+                </p>
+                <p style="font-size: larger">
+                  於第二冊較注重技巧方面，第三冊繼續使用此教本，再由練習曲的技巧去尋找技巧相關的曲目，作為互相對應；在曲目方面，較耳熟能詳，使學習者更能夠上手。此教材第二部加入把位、泛音、抖音等左手練習，運用相同節奏與曲目的熟悉度，使學習者練習時較容易。
+                </p>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+              <img src="./static/img/violin_4.jpg" class="sec3img" data-bs-toggle="modal" data-bs-target="#showProdInfo"
+                data-img-b="violin_4.jpg" alt="">
+              <span style="font-size: 30px">篠崎小提琴教本第四冊</span>
+              <div class="desc d-none">
+                <p style="font-size: larger">
+                  小提琴教材最多人使用的是《篠崎小提琴教本》共四冊，舊版編制為六卷，第一冊為第一卷，第二冊分為第二卷與第三卷，第三冊為第四卷與第五卷，第四冊為第六卷，新版第二冊
+                  與第三冊各分兩部。
+                </p>
+                <p style="font-size: larger">
+                  第四冊的練習曲與曲目變得較艱深，於每首練習曲的應用練習套用於該首練
+                  習曲，再以相同技巧的曲目拉奏，將曲目裡的技巧加以反覆練習，且可運用於不同曲目中。
+                </p>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- sec4 區域 ======================================== -->
+  <section id="sec4">
+    <h2>常見問題</h2>
+    <div class="container-xl">
+      <div class="row">
+
+        <div class="col-12 col-md-8 bg-white py-5">
+          <h3> 心中有疑問嗎? 趕快來看Q&A
+            <img src="./static/img/alarm.svg" alt="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#5f1e75" class="bi bi-alarm"
+              viewBox="0 0 16 16">
+              <path class="svg1"
+                d="M8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5z" />
+              <path class="svg2"
+                d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z" />
+            </svg>
+          </h3>
+
+          <div class="accordion" id="sec4accordion">
+
+            <div class="accordion-item">
+              <h3 class="accordion-header" id="heading1">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1"
+                  aria-expanded="true" aria-controls="collapse1">
+                  #1 請問透過這個平台預約家教課真的無需付費嗎?
+                </button>
+              </h3>
+
+              <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1"
+                data-bs-parent="#sec4accordion">
+                <div class="accordion-body">
+                  <strong>沒錯，這就是這個公益平台成立的初衷。</strong> 只要本平台開放的課程，透過預約，我們會為您安排志工家教老師，不論事前事中或事後，全程免費。但為了平台的公益推廣，您須同意上課時的錄影或照像，部份畫面可能會開貼在本站。
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h3 class="accordion-header" id="heading2">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                  #2 請問上課的日期，時段和方式?
+                </button>
+              </h3>
+
+              <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2"
+                data-bs-parent="#sec4accordion">
+                <div class="accordion-body">
+                  <strong>沒有固定，您可視自己的需要提出需求。</strong> 學習是一件自由和快樂的事，不必限制每次學習的時間和方式。只要您和家教老師協調好，上課的型式和時間長短可自行決定。
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h3 class="accordion-header" id="heading3">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                  #3 我要做什麼課前準備嗎?
+                </button>
+              </h3>
+              <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3"
+                data-bs-parent="#sec4accordion">
+                <div class="accordion-body">
+                  <strong>為了學習的效果，建議您對所學科目預作準備。</strong> 您可以事先準備上課要講解的題目，學校批改過的考卷，或困擾你的程式題。也可以請家教老師依指定教材按部就班指導。最好先瞭解自己的程度，讓老師知道你的程度是小四數學?篠崎小提琴第三冊?或是預計考英檢KET..
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h3 class="accordion-header" id="heading4">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                  #4 請問線上的課程是預錄好的嗎?
+                </button>
+              </h3>
+              <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4"
+                data-bs-parent="#sec4accordion">
+                <div class="accordion-body">
+                  <strong>不是，全部都是真人實鏡。</strong> 您可以隨時和老師互動，提出問題和練習回答。這是專為您打造的1對1家教課程。
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h3 class="accordion-header" id="heading5">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                 #5 請問上課用的通訊軟體是?
+                </button>
+              </h3>
+              <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5"
+                data-bs-parent="#sec4accordion">
+                <div class="accordion-body">
+                  <strong>主要是Google Classroom, Microsoft Teams, Zoom or Webex.</strong> 老師會盡量選用您熟悉的視訊軟體。當然您要有麥克風和攝像頭，以便上課時和老師互動。如果您想揪團一起上線也是允許的。
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h3 class="accordion-header" id="heading6">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                  #6 我可以報名擔任志工老師嗎?
+                </button>
+              </h3>
+              <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6"
+                data-bs-parent="#sec4accordion">
+                <div class="accordion-body">
+                  <strong>歡迎各學門或各行各業學有專精的人士熱血加入。</strong> 天生我材必有用，任何學習者都有值得分享的內容。您可透過留言與我們聯絡，我們會幫您作師資介紹和上架課程。請注意，事前事中和事後不得向學員收取任何型式的費用，或私下行銷個人的產品謀利，若經檢舉查證屬實者撤銷資格並公布於網站。 
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- sec5 區域 ======================================== -->
+  <section id="sec5">
+    <h2>聯絡我們</h2>
+
+    <div class="container-xl">
+      <div class="row">
+        <div class="col-12 col-md-9 offset-md-3">
+          <form
+            action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSe-NzvUdqGJXrNEiTtIOq2iDPTnmRzAs5HR88DNMlVAoqQGxg/formResponse"
+            method="post" target="_blank">
+            <p class="text-center">
+              <span class="redword">*</span> 表示欄位必填
+            </p>
+
+            <!-- 第1列:姓名 -->
+            <div class="row align-items-center">
+              <div class="col-12 col-sm-4 col-lg-3 d-flex justify-content-sm-end align-items-center">
+                <span class="redword">*</span>
+                姓名： <i class="bi bi-person"></i>
+              </div>
+              <div class="col-12 col-sm-8 col-lg-9">
+                <input type="text" class="form-control" name="entry.924963686" required placeholder="請輸入姓名....">
+              </div>
+            </div>
+
+            <!-- 第2列:稱謂 -->
+            <div class="row align-items-center">
+              <div class="col-12 col-sm-4 col-lg-3 d-flex justify-content-sm-end align-items-center">
+                <span class="redword">*</span>
+                稱謂： <i class="bi bi-gender-ambiguous"></i></i>
+              </div>
+              <div class="col-12 col-sm-8 col-lg-9 text-end text-sm-start">
+                <label>
+                  <input type="radio" class="form-check-input" name="entry.2007833673" value="先生" required> 先生
+                </label>
+                <label>
+                  <input type="radio" class="form-check-input" name="entry.2007833673" value="小姐" required> 小姐
+                </label>
+              </div>
+            </div>
+
+            <!-- 第3列:-email -->
+            <div class="row align-items-center">
+              <div class="col-12 col-sm-4 col-lg-3 d-flex justify-content-sm-end align-items-center">
+                <span class="redword">*</span>
+                e-mail： <i class="bi bi-phone-vibrate"></i></i>
+              </div>
+              <div class="col-12 col-sm-8 col-lg-9">
+                <input type="text" class="form-control" name="entry.409497729" required placeholder="請輸入您的電子信箱....">
+              </div>
+            </div>
+
+            <!-- 第4列:課程選擇 -->
+            <div class="row align-items-center">
+              <div class="col-12 col-sm-4 col-lg-3 d-flex justify-content-sm-end align-items-center">
+                <span class="redword">*</span>
+                課程選擇： <i class="bi bi-shop"></i></i>
+              </div>
+              <div class="col-12 col-sm-8 col-lg-9">
+                <select name="entry.1322563274" required class="form-select" aria-label="Default select">
+                  <option selected disabled value="">請選擇您想上的課程.....</option>
+                  <option value="劍橋英檢">劍橋英檢</option>
+                  <option value="數學天地">數學天地</option>
+                  <option value="程式語言">程式語言</option>
+                  <option value="音樂園地">音樂園地</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- 第5列:服務項目 -->
+            <div class="row align-items-center">
+              <div class="col-12 col-sm-4 col-lg-3 d-flex justify-content-sm-end align-items-center">
+                <span class="redword">*</span>
+                服務項目： <i class="bi bi-check2-square"></i>
+              </div>
+
+              <div class="col-12 col-sm-8 col-lg-9 d-flex justify-content-end justify-content-sm-start">
+
+                <div>
+                  <label>
+                    <input type="checkbox" class="form-check-input" name="entry.459800545" value="回覆問題"> 回覆問題
+                  </label>
+                  <label>
+                    <input type="checkbox" class="form-check-input" name="entry.459800545" value="寄發講義"> 寄發講義
+                  </label>
+                </div>
+
+                <div>
+                  <label>
+                    <input type="checkbox" class="form-check-input" name="entry.459800545" value="推薦資料"> 推薦資料
+                  </label>
+                  <label>
+                    <input type="checkbox" class="form-check-input" name="entry.459800545" value="預約上課"> 預約上課
+                  </label>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- 第6列:留言內容 -->
+            <div class="row align-items-start">
+              <div class="col-12 col-sm-4 col-lg-3 d-flex justify-content-sm-end align-items-center">
+                <span class="redword">*</span>
+                留言內容： <i class="bi bi-chat-dots"></i>
+              </div>
+              <div class="col-12 col-sm-8 col-lg-9">
+                <textarea class="form-control" name="entry.51276902" required rows="6"></textarea>
+              </div>
+            </div>
+
+            <!-- 第7列:送出表單的按鈕 -->
+            <div class="text-end">
+              <input type="submit" class="btn btn-outline-secondary" value="送出表單">
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <footer>Copyright © 2023 Huang Family Web | 建議使用 Chrome 瀏覽器 | Maintained by Evan Huang</footer>
+  </section>
+
+  <!-- Button trigger modal 
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#showProdInfo">
+    Launch demo modal
+  </button>
+  -->
+  <!-- Modal -->
+  <div class="modal fade" id="showProdInfo" tabindex="-1" aria-labelledby="showProdInfoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h2 class="modal-title" id="showProdInfoLabel">系列名稱</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-12 col-lg-6">
+              <img src="" class="d-block w-100 rounded-3 prod-b" alt="">
+            </div>
+            <div class="col-12 col-lg-6">
+              <h3 class="my-3 mt-lg-0">商品名稱</h3>
+              <div class="desc"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!--  
+    如何讓#sec3點選圖片時呈現商品各自內容
+    方法一：準備12個Modal
+    方法二：讓每個商品需要的資訊準備(躲)在圖的附近, 接著利用JS程式取得, 再放到Modal中
+    方法三：將所有資訊存放在JSON的資訊文字檔, 接著運用JS的AJAX技術呼叫進來放在Modal中
+    方法四：資料庫存放資料, 接著由後端程式處理
+  -->
+
+  <!-- 
+    導覽列桌機版的效果
+    (1) CSS先設定absolute的定位
+    (2) 運用JS判斷header是否已滑出
+    (3) 運用CSS設計animation的動畫
+    (4) CSS設定fixed的定位
+  -->
+
+
+
+
+</html>
